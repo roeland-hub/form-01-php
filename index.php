@@ -1,7 +1,7 @@
 <?php
 //this line makes PHP behave in a more strict way
-//declare(strict_types=1);
-include 'from-view.php';
+declare(strict_types=1);
+
 //we are going to use session variables so we need to enable sessions
 session_set_cookie_params(0);
 session_start();
@@ -18,29 +18,48 @@ function whatIsHappening() {
 }
 
 //your products with their price.
-$products = [
-    ['name' => 'Club Ham', 'price' => 3.20],
-    ['name' => 'Club Cheese', 'price' => 3],
-    ['name' => 'Club Cheese & Ham', 'price' => 4],
-    ['name' => 'Club Chicken', 'price' => 4],
-    ['name' => 'Club Salmon', 'price' => 5]
-];
 
-$products = [
-    ['name' => 'Cola', 'price' => 2],
-    ['name' => 'Fanta', 'price' => 2],
-    ['name' => 'Sprite', 'price' => 2],
-    ['name' => 'Ice-tea', 'price' => 3],
-];
+if (isset($_GET["food"])) {
+    if ($_GET["food"] == 0) {
+        $products = [
+            ['name' => 'Cola', 'price' => 2],
+            ['name' => 'Fanta', 'price' => 2],
+            ['name' => 'Sprite', 'price' => 2],
+            ['name' => 'Ice-tea', 'price' => 3],
+        ];
+    }else {
+        $products = [
+            ['name' => 'Club Ham', 'price' => 3.20],
+            ['name' => 'Club Cheese', 'price' => 3],
+            ['name' => 'Club Cheese & Ham', 'price' => 4],
+            ['name' => 'Club Chicken', 'price' => 4],
+            ['name' => 'Club Salmon', 'price' => 5]
+        ];
+    }
+    }else{
+        $products = [
+            ['name' => 'Club Ham', 'price' => 3.20],
+            ['name' => 'Club Cheese', 'price' => 3],
+            ['name' => 'Club Cheese & Ham', 'price' => 4],
+            ['name' => 'Club Chicken', 'price' => 4],
+            ['name' => 'Club Salmon', 'price' => 5]
+        ];
+    }
 
 
+function input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
 
 $totalValue = 0;
 whatIsHappening();
-//require 'form-view.php';
 
-$emailErr = $streetErr = $streetNumberErr = $cityErr =  $zipcodeErr = "";
-$email = $street = $streetNumber= $city = $zipcode = "";
+
+$emailErr = $streetErr = $streetNumberErr = $cityErr =  $zipcodeErr = $productsErr= "";
+$email = $street = $streetNumber= $city = $zipcode = $products = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["email"])) {
@@ -87,4 +106,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $zipcodeErr = "only numbers";
         }
     }
+
+    if(empty($_POST["products"])) {
+        $productsErr = "Empty order";
+    } else {
+        
+    }
 }
+
+
+
+require 'from-view.php';
+
+
+
+
+
