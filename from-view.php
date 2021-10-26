@@ -8,6 +8,12 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css"
           rel="stylesheet"/>
     <title>Order food & drinks</title>
+    <style>
+        footer {
+            text-align: center;
+        }
+        .error {color: #FF0000;}
+    </style>
 </head>
 <body>
 <div class="container">
@@ -39,21 +45,24 @@
                 <div class="form-group col-md-6">
                     <label for="street">Street:</label>
                     <input type="text" name="street" id="street" class="form-control" value="<?php echo isset($_SESSION["input1"]) ? $_SESSION["input1"] : (isset($_POST['street']) ? $_POST['street'] : '') ?>">
+                    <span class="error">* <?php echo $streetErr;?></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="streetnumber">Street number:</label>
                     <input type="text" id="streetnumber" name="streetnumber" class="form-control" value="<?php echo isset($_SESSION["input2"]) ? $_SESSION["input2"] : (isset($_POST['streetnumber']) ? $_POST['streetnumber'] : '') ?>">
-                    <span class="error">* <?php echo $streeNumberErr;?></span>
+                    <span class="error">* <?php echo $streetNumberErr;?></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="city">City:</label>
                     <input type="text" id="city" name="city" class="form-control" value="<?php echo isset($_SESSION["input3"]) ? $_SESSION["input3"] : (isset($_POST['city']) ? $_POST['city'] : '') ?>">
+                    <span class="error">* <?php echo $cityErr;?></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="zipcode">Zipcode</label>
                     <input type="text" id="zipcode" name="zipcode" class="form-control" value="<?php echo isset($_SESSION["input4"]) ? $_SESSION["input4"] : (isset($_POST['zipcode']) ? $_POST['zipcode'] : '') ?>">
+                    <span class="error">* <?php echo $zipcodeErr;?></span>
                 </div>
             </div>
         </fieldset>
@@ -78,11 +87,9 @@
     <footer>You already ordered <strong>&euro; <?php echo $totalValue ?></strong> in food and drinks.</footer>
 </div>
 
-<style>
-    footer {
-        text-align: center;
-    }
-    .error {color: #FF0000;}
-</style>
+
+
+
+
 </body>
 </html>
